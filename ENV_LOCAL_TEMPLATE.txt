@@ -1,0 +1,37 @@
+# ============================================
+# CORRECTED .env.local FILE
+# ============================================
+# Copy this content to your .env.local file
+# Remove ALL spaces around = signs
+# Remove ALL quotes from values
+# Remove ALL trailing spaces
+# ============================================
+
+# Next.js
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-nextauth-secret-here
+
+# Supabase (use NEXT_PUBLIC_ prefix for client-side access)
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+
+# OAuth - Google
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+# OAuth - LinkedIn
+LINKEDIN_CLIENT_ID=your-linkedin-client-id
+LINKEDIN_CLIENT_SECRET=your-linkedin-client-secret
+
+# OAuth - Facebook
+FACEBOOK_CLIENT_ID=your-facebook-client-id
+FACEBOOK_CLIENT_SECRET=your-facebook-client-secret
+
+# APIs
+OPENAI_API_KEY=your-openai-api-key
+RECALL_API_KEY=your-recall-api-key
+
+# Cron
+CRON_SECRET=your-cron-secret-for-vercel
+

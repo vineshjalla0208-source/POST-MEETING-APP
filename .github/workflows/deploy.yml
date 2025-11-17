@@ -11,7 +11,7 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/post-meeting-app
+  IMAGE_NAME: docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/post-meeting-app:latest
 
 jobs:
   build:
@@ -36,13 +36,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.IMAGE_NAME }}
+          images: docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/post-meeting-app
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=sha,prefix={{branch}}-
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Docker image
@@ -53,8 +48,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ env.IMAGE_NAME }}:buildcache
-          cache-to: type=registry,ref=${{ env.IMAGE_NAME }}:buildcache,mode=max
+          cache-from: type=registry,ref=docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/post-meeting-app:buildcache
+          cache-to: type=registry,ref=docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/post-meeting-app:buildcache,mode=max
 
   deploy:
     name: Deploy to Server
@@ -78,7 +73,7 @@ jobs:
             echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
             
             # Pull latest image
-            docker pull ${{ env.IMAGE_NAME }}:latest
+            docker pull docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/post-meeting-app:latest
             
             # Stop and remove old container
             docker stop post-meeting-app || true
@@ -102,8 +97,7 @@ jobs:
               -e GOOGLE_REDIRECT_URI="${{ secrets.GOOGLE_REDIRECT_URI }}" \
               -e RECALL_API_KEY="${{ secrets.RECALL_API_KEY }}" \
               -e RECALL_BASE_URL="${{ secrets.RECALL_BASE_URL }}" \
-              ${{ env.IMAGE_NAME }}:latest
+              docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/post-meeting-app:latest
             
             # Clean up old images
             docker image prune -f
-

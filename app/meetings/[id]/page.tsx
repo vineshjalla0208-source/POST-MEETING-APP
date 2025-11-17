@@ -39,7 +39,7 @@ export default async function MeetingDetailPage({
       <div className="container mx-auto py-10">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-2">Meeting not found</h1>
-          <p className="text-muted-foreground">The meeting you're looking for doesn't exist or you don't have access to it.</p>
+          <p className="text-muted-foreground">The meeting you&apos;re looking for doesn&apos;t exist or you don&apos;t have access to it.</p>
         </div>
       </div>
     )

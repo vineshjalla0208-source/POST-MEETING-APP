@@ -251,7 +251,7 @@ export function RecallBotControl({
       {bot.status !== 'completed' && bot.status !== 'failed' && (
         <p className="text-xs text-muted-foreground">
           The bot will automatically join the meeting and start recording. 
-          Check back later or click "Check Status" to update.
+          Check back later or click &quot;Check Status&quot; to update.
         </p>
       )}
     </div>
